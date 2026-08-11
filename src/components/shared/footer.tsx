@@ -38,15 +38,6 @@ export function Footer() {
             <LinkedinIcon size={18} />
           </a>
           <a
-            href={profile.links.instagram}
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="Instagram"
-            className="text-muted-foreground transition-colors hover:text-foreground"
-          >
-            <InstagramIcon size={18} />
-          </a>
-          <a
             href={profile.links.email}
             aria-label="Email"
             className="text-muted-foreground transition-colors hover:text-foreground"
