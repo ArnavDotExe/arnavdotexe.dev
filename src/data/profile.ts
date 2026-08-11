@@ -7,8 +7,8 @@ export const profile = {
   heroHeadline: "Building Intelligent Systems for the Physical World.",
   heroSub:
     "I design and ship real-time perception, edge inference, and automation systems — from gated neural networks running on embedded hardware to the firmware and infrastructure that keeps them online. Currently an R&D Engineer at Binks, working on manufacturing efficiency and automation.",
-  location: "Navi Mumbai, Maharashtra, India",
-  status: "Open to full-time roles",
+  location: "Mumbai, Maharashtra, India",
+  status: "Employed",
   email: "mangaonkararnav@gmail.com",
   phone: "+91 86928 70096",
   links: {
@@ -31,7 +31,7 @@ export const profile = {
   stats: [
     { label: "Years building", value: "4+" },
     { label: "Public repositories", value: "30+" },
-    { label: "Shipped projects", value: "5" },
+    { label: "Shipped projects", value: "10+" },
     { label: "Published IP", value: "1" },
   ],
 } as const;

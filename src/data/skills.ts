@@ -52,4 +52,4 @@ export const skills: SkillCategory[] = [
   },
 ];
 
-export const spokenLanguages = ["English", "Marathi", "Hindi"];
+export const spokenLanguages = ["Python", "C/C++", "Java", "JavaScript", "Embedded C", "SQL", "HTML/CSS", "Bash/Shell Scripting"];

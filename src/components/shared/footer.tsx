@@ -16,10 +16,10 @@ export function Footer() {
           <p className="text-sm text-muted-foreground">
             © {year} {profile.name}. Built with Next.js, Tailwind CSS &amp; Framer Motion.
           </p>
-          <p className="max-w-xl text-xs text-muted-foreground/70" title={dataSourceNote}>
+          {/* <p className="max-w-xl text-xs text-muted-foreground/70" title={dataSourceNote}>
             Content sourced from GitHub &amp; Arnav directly — LinkedIn returned an
             authentication wall on every automated fetch.
-          </p>
+          </p> */}
         </div>
 
         <div className="flex items-center gap-4">
