@@ -3,9 +3,12 @@
 import { motion } from "framer-motion";
 import { ArrowRight, Mail } from "lucide-react";
 import { profile } from "@/data/profile";
+import { experience } from "@/data/experience";
 import { useArchMode } from "@/components/arch/arch-provider";
 import { ArchFetchPanel } from "@/components/arch/arch-fetch-panel";
 import { GithubIcon } from "@/components/shared/brand-icons";
+
+const currentRole = experience.find((e) => e.current) ?? experience[0];
 
 export function Hero() {
   const { isArch, mounted, goToSection } = useArchMode();
@@ -43,23 +46,32 @@ export function Hero() {
                 <span className="absolute inline-flex h-full w-full animate-glow-pulse rounded-full bg-amber" />
                 <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-amber" />
               </span>
-              {profile.status} · {profile.education.period.split(" ")[2] ?? "2026"} graduate
+              {profile.status} · {currentRole.role} @ {currentRole.company}
             </motion.div>
 
             <motion.h1
               initial={{ opacity: 0, y: 22 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, delay: 0.05, ease: [0.16, 1, 0.3, 1] }}
-              className="max-w-4xl text-4xl font-semibold leading-[1.05] tracking-tight text-balance sm:text-6xl lg:text-7xl"
+              className="max-w-5xl text-5xl font-semibold leading-[1.02] tracking-tight text-balance sm:text-7xl lg:text-8xl"
             >
-              {profile.heroHeadline}
+              {profile.name}
             </motion.h1>
 
             <motion.p
               initial={{ opacity: 0, y: 18 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, delay: 0.16, ease: [0.16, 1, 0.3, 1] }}
-              className="mt-6 max-w-2xl text-base leading-relaxed text-muted-foreground sm:text-lg"
+              transition={{ duration: 0.7, delay: 0.13, ease: [0.16, 1, 0.3, 1] }}
+              className="mt-4 max-w-3xl text-lg font-medium leading-snug text-balance text-amber sm:text-2xl lg:text-[28px]"
+            >
+              {profile.positioning}
+            </motion.p>
+
+            <motion.p
+              initial={{ opacity: 0, y: 18 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+              className="mt-5 max-w-2xl text-base leading-relaxed text-muted-foreground sm:text-lg"
             >
               {profile.heroSub}
             </motion.p>

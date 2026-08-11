@@ -11,14 +11,25 @@ export interface ExperienceEntry {
 
 export const experience: ExperienceEntry[] = [
   {
+    role: "R&D Engineer",
+    company: "Binks",
+    period: "Jul 2026 — Present",
+    current: true,
+    domain: "Manufacturing Efficiency & Automation",
+    points: [
+      "Working in R&D on manufacturing efficiency and automation, applying automation and process-monitoring systems to real production environments.",
+    ],
+    tags: ["R&D", "Manufacturing", "Automation", "Process Efficiency"],
+  },
+  {
     role: "Embedded Developer Consultant",
     company: "Vektor3d Systems LLP",
-    period: "Jun 2025 — Present",
-    current: true,
+    period: "Jun 2025 — Jan 2026",
+    current: false,
     domain: "R&D / Industrial Automation",
     points: [
-      "Developing a real-time detection and alert system for anomalies and errors occurring in additive manufacturing, specifically FDM 3D printing.",
-      "Working across the embedded + edge-inference stack: capturing print video, running lightweight anomaly-detection models on-device, and surfacing actionable alerts.",
+      "Developed a real-time detection and alert system for anomalies and errors occurring in additive manufacturing, specifically FDM 3D printing.",
+      "Worked across the embedded + edge-inference stack: capturing print video, running lightweight anomaly-detection models on-device, and surfacing actionable alerts.",
     ],
     tags: ["Embedded C", "Edge AI", "Anomaly Detection", "Additive Manufacturing", "R&D"],
   },

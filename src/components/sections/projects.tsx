@@ -44,7 +44,6 @@ const CATEGORY_META: Record<ProjectCategory, { icon: React.ReactNode; gradient: 
 
 const CATEGORIES: (ProjectCategory | "All")[] = [
   "All",
-  "Robotics",
   "Computer Vision",
   "Embedded Systems",
   "AI / ML",

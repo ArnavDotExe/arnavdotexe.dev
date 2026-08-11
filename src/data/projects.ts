@@ -96,38 +96,6 @@ export const projects: Project[] = [
     status: "Published",
   },
   {
-    slug: "agrobot",
-    name: "agroBot",
-    tagline: "Autonomous agricultural robotics platform",
-    description:
-      "A robotics project exploring autonomous navigation and sensing for agricultural use cases — part of Arnav's ongoing work applying embedded control and automation to real-world, outdoor robotics.",
-    categories: ["Robotics", "Automation", "Embedded Systems"],
-    tech: ["Python", "Robotics", "Sensors", "Embedded Control"],
-    achievements: [
-      "Applied embedded control and sensing to an autonomous agricultural robotics use case",
-    ],
-    github: "https://github.com/ArnavDotExe/agroBot",
-    period: "2025",
-    featured: false,
-    status: "Shipped",
-  },
-  {
-    slug: "wall-climbing-car",
-    name: "Wall-Climbing Car",
-    tagline: "Vacuum-adhesion robot that drives on vertical surfaces",
-    description:
-      "A wall-climbing robot built around a BLDC motor generating vacuum suction for adhesion, letting the platform drive across vertical surfaces — a mechatronics and control project combining motor control with structural design.",
-    categories: ["Robotics", "Embedded Systems"],
-    tech: ["C++", "BLDC Motor Control", "Mechatronics"],
-    achievements: [
-      "Designed a vacuum-adhesion drive system using a BLDC motor to enable driving on vertical surfaces",
-    ],
-    github: "https://github.com/ArnavDotExe/wall-climbing-car-",
-    period: "2023",
-    featured: false,
-    status: "Shipped",
-  },
-  {
     slug: "tinygpt",
     name: "TinyGPT",
     tagline: "A minimal GPT-style language model built from scratch",
@@ -140,22 +108,6 @@ export const projects: Project[] = [
     ],
     github: "https://github.com/ArnavDotExe/TinyGPT",
     period: "2026",
-    featured: false,
-    status: "Shipped",
-  },
-  {
-    slug: "nodemcu-wifi-car",
-    name: "NodeMCU Wi-Fi Car",
-    tagline: "Phone-controlled robotics platform over Wi-Fi",
-    description:
-      "A mobile-phone-controlled car built on a NodeMCU and L298N motor driver — an early robotics and embedded-networking project on the path toward more advanced autonomous platforms.",
-    categories: ["Robotics", "Embedded Systems"],
-    tech: ["C++", "NodeMCU", "L298N", "Wi-Fi"],
-    achievements: [
-      "Built real-time Wi-Fi motor control between a mobile client and an embedded driver board",
-    ],
-    github: "https://github.com/ArnavDotExe/NodeMcu-Wi-Fi-Car",
-    period: "2023",
     featured: false,
     status: "Shipped",
   },

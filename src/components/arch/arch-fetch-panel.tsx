@@ -22,7 +22,6 @@ const ROWS: [string, string][] = [
   ["role", profile.role],
   ["domain", current.domain],
   ["company", current.company],
-  ["education", `${profile.education.degree.replace("B.E. in ", "B.E. ")} — ${profile.education.school.split(" ")[0]} '26`],
   ["shell", "zsh"],
   ["wm", "Hyprland"],
   ["terminal", "kitty"],
