@@ -1,18 +1,8 @@
+import Image from "next/image";
 import { profile } from "@/data/profile";
 import { experience } from "@/data/experience";
 import { spokenLanguages } from "@/data/skills";
 import { ArchWindow } from "./arch-window";
-
-const ASCII_LOGO = String.raw`
-       /\
-      /  \
-     /\   \
-    /  \   \
-   /    \   \
-  / ,,   \   \
- /  |  |  -\  \
-/.-'      '-.\ \
-`.trim();
 
 const current = experience.find((e) => e.current) ?? experience[0];
 
@@ -34,9 +24,16 @@ export function ArchFetchPanel() {
   return (
     <ArchWindow title="arnav@portfolio: neofetch">
       <div id="arch-fetch" className="flex flex-col gap-6 p-6 sm:flex-row sm:gap-10 sm:p-8">
-        <pre className="arch-ascii shrink-0" aria-hidden="true">
-          {ASCII_LOGO}
-        </pre>
+        <div className="shrink-0">
+          <Image
+            src="/avatar-placeholder.svg"
+            alt="Arnav Mangaonkar — profile photo placeholder"
+            width={160}
+            height={160}
+            priority
+            className="h-32 w-32 rounded-xl sm:h-40 sm:w-40"
+          />
+        </div>
         <div>
           <p className="mb-1 font-semibold text-[var(--arch-green)]">
             arnav<span className="text-[var(--arch-fg-dim)]">@</span>portfolio

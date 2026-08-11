@@ -10,23 +10,12 @@ import {
   useState,
   type ReactNode,
 } from "react";
-import {
-  WORKSPACES,
-  enableArchToggle,
-  getStoredArchState,
-  loadArchVisitors,
-  readMemoryUsage,
-  setArch,
-  type MemoryReading,
-} from "@/lib/arch";
+import { WORKSPACES, loadArchVisitors, readMemoryUsage, type MemoryReading } from "@/lib/arch";
 
 interface ArchContextValue {
-  mounted: boolean;
-  isArch: boolean;
   activeSection: string;
   memory: MemoryReading;
   visitors: number | null;
-  toggleArch: () => void;
   goToSection: (sectionId: string) => void;
 }
 
@@ -41,31 +30,12 @@ export function useArchMode() {
 const SECTION_IDS = WORKSPACES.map((w) => w.sectionId);
 
 export function ArchProvider({ children }: { children: ReactNode }) {
-  const [mounted, setMounted] = useState(false);
-  const [isArch, setIsArch] = useState(false);
   const [activeSection, setActiveSection] = useState<string>(SECTION_IDS[0]);
   const [memory, setMemory] = useState<MemoryReading>({ supported: false });
   const [visitors, setVisitors] = useState<number | null>(null);
 
   const readBarRef = useRef<HTMLDivElement | null>(null);
   const rafRef = useRef<number | null>(null);
-
-  // Sync with whatever the pre-paint script already applied to <body>.
-  useEffect(() => {
-    setMounted(true);
-    setIsArch(getStoredArchState() === "on");
-
-    const cleanup = enableArchToggle();
-    const onArchChange = (e: Event) => {
-      const detail = (e as CustomEvent<boolean>).detail;
-      setIsArch(Boolean(detail));
-    };
-    window.addEventListener("archchange", onArchChange);
-    return () => {
-      cleanup();
-      window.removeEventListener("archchange", onArchChange);
-    };
-  }, []);
 
   // rAF-driven scroll tracking — drives #arch-read directly via ref to
   // avoid a React re-render on every scroll frame.
@@ -97,7 +67,7 @@ export function ArchProvider({ children }: { children: ReactNode }) {
     };
   }, []);
 
-  // Active-section tracking, shared by the professional nav and the Arch workspace bar.
+  // Active-section tracking, drives the workspace bar's highlight + window title.
   useEffect(() => {
     const sections = SECTION_IDS.map((id) => document.getElementById(id)).filter(
       (el): el is HTMLElement => el !== null
@@ -136,15 +106,13 @@ export function ArchProvider({ children }: { children: ReactNode }) {
     };
   }, []);
 
-  const toggleArch = useCallback(() => setArch(!isArch), [isArch]);
-
   const goToSection = useCallback((sectionId: string) => {
     document.getElementById(sectionId)?.scrollIntoView({ behavior: "smooth", block: "start" });
   }, []);
 
   const value = useMemo<ArchContextValue>(
-    () => ({ mounted, isArch, activeSection, memory, visitors, toggleArch, goToSection }),
-    [mounted, isArch, activeSection, memory, visitors, toggleArch, goToSection]
+    () => ({ activeSection, memory, visitors, goToSection }),
+    [activeSection, memory, visitors, goToSection]
   );
 
   return (

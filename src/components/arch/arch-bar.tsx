@@ -1,26 +1,22 @@
 "use client";
 
-import { Cpu, Eye, Power, Terminal } from "lucide-react";
+import { Cpu, Download, Eye, Mail, Terminal } from "lucide-react";
 import { WORKSPACES } from "@/lib/arch";
+import { profile } from "@/data/profile";
 import { useArchMode } from "./arch-provider";
 import { ArchClock } from "./arch-clock";
+import { GithubIcon, LinkedinIcon } from "@/components/shared/brand-icons";
 
 export function ArchBar() {
-  const { isArch, activeSection, memory, visitors, goToSection } = useArchMode();
+  const { activeSection, memory, visitors, goToSection } = useArchMode();
 
   const activeWorkspace =
     WORKSPACES.find((w) => w.sectionId === activeSection) ?? WORKSPACES[0];
 
   return (
-    <header
-      id="arch-bar"
-      role="banner"
-      aria-label="Rice mode status bar"
-      aria-hidden={!isArch}
-      inert={!isArch ? true : undefined}
-    >
+    <header id="arch-bar" role="banner" aria-label="Site navigation bar">
       <div className="arch-bar-group">
-        <span className="arch-module" aria-hidden="true">
+        <span className="arch-module arch-brand" aria-hidden="true">
           <Terminal size={13} />
           arnav
         </span>
@@ -35,7 +31,8 @@ export function ArchBar() {
               aria-label={`Go to ${ws.label} workspace`}
               onClick={() => goToSection(ws.sectionId)}
             >
-              {ws.id}: {ws.label}
+              <span className="ws-num">{ws.id}</span>
+              <span className="ws-label">: {ws.label}</span>
             </button>
           ))}
         </nav>
@@ -46,6 +43,36 @@ export function ArchBar() {
       </div>
 
       <div className="arch-bar-group">
+        <a
+          href={profile.links.github}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="arch-module arch-bar-link"
+          aria-label="GitHub profile"
+        >
+          <GithubIcon size={13} />
+        </a>
+        <a
+          href={profile.links.linkedin}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="arch-module arch-bar-link"
+          aria-label="LinkedIn profile"
+        >
+          <LinkedinIcon size={13} />
+        </a>
+        <a href={profile.links.email} className="arch-module arch-bar-link" aria-label="Email Arnav">
+          <Mail size={13} />
+        </a>
+        <a
+          href={profile.links.resume}
+          download
+          className="arch-module arch-bar-link"
+          aria-label="Download resume"
+        >
+          <Download size={13} />
+        </a>
+
         <span id="arch-mem" className="arch-module" aria-hidden="true">
           <Cpu size={13} />
           <span id="arch-mem-mod" suppressHydrationWarning>
@@ -63,18 +90,6 @@ export function ArchBar() {
         </span>
 
         <ArchClock />
-
-        <button
-          id="arch-power"
-          data-arch-power
-          type="button"
-          className="arch-module"
-          aria-pressed={isArch}
-          aria-label="Turn off Arch rice mode and return to the portfolio"
-          tabIndex={isArch ? 0 : -1}
-        >
-          <Power size={13} />
-        </button>
       </div>
     </header>
   );

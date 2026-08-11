@@ -1,12 +1,8 @@
-"use client";
-
-import { Mail, Terminal } from "lucide-react";
-import { profile, dataSourceNote } from "@/data/profile";
-import { useArchMode } from "@/components/arch/arch-provider";
+import { Mail } from "lucide-react";
+import { profile } from "@/data/profile";
 import { GithubIcon, LinkedinIcon } from "@/components/shared/brand-icons";
 
 export function Footer() {
-  const { toggleArch, isArch } = useArchMode();
   const year = new Date().getFullYear();
 
   return (
@@ -48,15 +44,6 @@ export function Footer() {
           >
             <Mail size={18} />
           </a>
-          <button
-            type="button"
-            onClick={toggleArch}
-            aria-pressed={isArch}
-            className="flex items-center gap-1.5 rounded-full border border-border px-3 py-1.5 text-xs text-muted-foreground transition-colors hover:border-amber hover:text-amber"
-          >
-            <Terminal size={13} aria-hidden="true" />
-            {isArch ? "exit rice mode" : "psst — try rice mode"}
-          </button>
         </div>
       </div>
     </footer>

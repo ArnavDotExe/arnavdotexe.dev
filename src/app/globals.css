@@ -211,8 +211,9 @@ body.theme-arch ::-webkit-scrollbar-thumb {
   background: var(--arch-border);
 }
 
-/* Waybar-style top status bar — hidden unless Rice Mode is active, so it
-   never affects layout or paints anything in the professional theme. */
+/* Waybar-style top status bar. Rice Mode is the site's only theme (body
+   always carries .theme-arch — see layout.tsx), but the display:none base
+   case is kept as a safe default in case that class is ever removed. */
 #arch-bar,
 #arch-read {
   display: none;
@@ -257,13 +258,22 @@ body.theme-arch #arch-bar .arch-module {
   color: inherit;
 }
 
-button.arch-module {
+button.arch-module,
+a.arch-module {
   cursor: pointer;
 }
 
-button.arch-module:hover {
+button.arch-module:hover,
+a.arch-module:hover {
   border-color: var(--arch-blue);
   color: var(--arch-blue);
+}
+
+body.theme-arch #arch-bar .arch-bar-link {
+  padding: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 /* Workspace navigation */
@@ -304,6 +314,42 @@ body.theme-arch #arch-window-title {
   text-overflow: ellipsis;
   white-space: nowrap;
   max-width: 30vw;
+}
+
+/* Bar is the site's only nav now, so it has to hold up on small screens:
+   drop the window title and workspace text labels, keep the numbers,
+   icon links, and clock — the essentials. If it's still tight, it scrolls
+   horizontally rather than breaking the page layout. */
+body.theme-arch #arch-bar {
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+body.theme-arch #arch-bar::-webkit-scrollbar {
+  display: none;
+}
+
+@media (max-width: 720px) {
+  body.theme-arch #arch-window-title {
+    display: none;
+  }
+  body.theme-arch #arch-ws .ws-label {
+    display: none;
+  }
+}
+
+@media (max-width: 480px) {
+  body.theme-arch #arch-bar #arch-mem,
+  body.theme-arch #arch-bar #arch-vis,
+  body.theme-arch #arch-bar .arch-brand {
+    display: none;
+  }
+  body.theme-arch #arch-bar .arch-bar-group {
+    gap: 3px;
+  }
+  body.theme-arch #arch-bar #arch-ws button {
+    padding: 4px 6px;
+  }
 }
 
 /* Reading progress bar, sits just under the bar */
@@ -395,13 +441,6 @@ body.theme-arch #arch-fetch .arch-fetch-label {
   color: var(--arch-blue);
 }
 
-body.theme-arch .arch-ascii {
-  color: var(--arch-cyan);
-  white-space: pre;
-  line-height: 1.15;
-  font-size: 11px;
-}
-
 body.theme-arch a {
   color: var(--arch-blue);
   text-underline-offset: 3px;
@@ -411,13 +450,8 @@ body.theme-arch a:hover {
   color: var(--arch-cyan);
 }
 
-/* The professional nav is replaced entirely by the Waybar-style #arch-bar;
-   content shifts up to sit under the (shorter) bar + read-progress strip. */
-body.theme-arch #site-navbar {
-  display: none;
-}
-
-body.theme-arch #main-content {
+/* Content sits under the fixed bar (34px) + read-progress strip (2px). */
+#main-content {
   padding-top: 36px;
 }
 

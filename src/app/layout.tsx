@@ -3,7 +3,6 @@ import { Geist, Geist_Mono } from "next/font/google";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { ArchProvider } from "@/components/arch/arch-provider";
 import { ArchBar } from "@/components/arch/arch-bar";
-import { Navbar } from "@/components/shared/navbar";
 import { Footer } from "@/components/shared/footer";
 import { profile } from "@/data/profile";
 import "./globals.css";
@@ -92,17 +91,6 @@ const jsonLd = {
   sameAs: [profile.links.github, profile.links.linkedin],
 };
 
-// Applies the persisted Arch Rice Mode theme to <body> before first paint,
-// so reloading with rice mode on never flashes the professional theme first.
-const PRE_PAINT_SCRIPT = `
-(function () {
-  try {
-    var v = window.localStorage.getItem('theme-arch');
-    if (v === 'on') document.body.classList.add('theme-arch');
-  } catch (e) {}
-})();
-`;
-
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
@@ -115,10 +103,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
       </head>
-      <body className="min-h-full flex flex-col" suppressHydrationWarning>
-        {/* Runs before anything else in <body>, so a persisted Rice Mode
-            choice is applied to document.body pre-paint — no theme flash. */}
-        <script dangerouslySetInnerHTML={{ __html: PRE_PAINT_SCRIPT }} />
+      <body className="theme-arch min-h-full flex flex-col">
         <a
           href="#main-content"
           className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[300] focus:rounded-md focus:bg-primary focus:px-4 focus:py-2 focus:text-sm focus:font-medium focus:text-primary-foreground"
@@ -128,8 +113,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <TooltipProvider delay={150}>
           <ArchProvider>
             <ArchBar />
-            <Navbar />
-            <main id="main-content" className="flex-1 pt-18">
+            <main id="main-content" className="flex-1">
               {children}
             </main>
             <Footer />
