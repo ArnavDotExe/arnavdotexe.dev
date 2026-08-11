@@ -3,10 +3,10 @@ export const profile = {
   initials: "AM",
   role: "AI / Robotics / Embedded Systems Engineer",
   positioning:
-    "Engineer building intelligent systems at the intersection of AI, Robotics, Computer Vision, Embedded Systems, and Industrial Automation.",
+    "Engineer building intelligent systems and a Photographer.",
   heroHeadline: "Building Intelligent Systems for the Physical World.",
   heroSub:
-    "I design and ship real-time perception, edge inference, and automation systems — from gated neural networks running on embedded hardware to the firmware and infrastructure that keeps them online. Currently an R&D Engineer at Binks, working on manufacturing efficiency and automation.",
+    ";).",
   location: "Mumbai, Maharashtra, India",
   status: "Employed",
   email: "mangaonkararnav@gmail.com",
@@ -14,13 +14,13 @@ export const profile = {
   links: {
     github: "https://github.com/ArnavDotExe",
     linkedin: "https://www.linkedin.com/in/arnavmangaonkar",
+    instagram: "https://www.instagram.com/shillpkarr",
     email: "mailto:mangaonkararnav@gmail.com",
     resume: "/Arnav-Mangaonkar-Resume.pdf",
   },
   about: [
     "I'm an AI & Machine Learning engineer working as an R&D Engineer at Binks, focused on manufacturing efficiency and automation — applying automation and process-monitoring systems to real production environments. Before that, I built detection and alert systems for anomalies in additive manufacturing, and edge-deployed neural networks for real-time inspection on constrained hardware.",
     "My work sits at the intersection of AI, robotics, computer vision, and embedded systems: gated neural networks for defect detection, self-hosted network and NAS infrastructure, LLM-grounded developer tooling, and firmware for IoT and anti-theft hardware. I care about systems that run unattended, in the real world, under real constraints — not just in a notebook.",
-    "Previously, I worked as a Data Analyst Intern at Tata Power Renewables, building real-time monitoring and anomaly-flagging tools for transformer and energy-generation data.",
   ],
   education: {
     school: "SIES Graduate School of Technology",

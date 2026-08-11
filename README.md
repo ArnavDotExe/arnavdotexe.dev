@@ -132,6 +132,15 @@ that component if you rename it. Next's static file server sets `Content-Type` f
 extension, so make sure the extension matches the actual image format (a PNG saved as `.svg`
 will render as a broken image).
 
+### Photography section
+
+The four tiles in the Photography section (`components/sections/photography.tsx`) currently show
+placeholder graphics from `public/photography/photo-1.svg` through `photo-4.svg`. Replace those
+four files with real photos to update the grid — same filenames, and again, make sure the
+extension matches the actual format. Every tile (and the "Follow on Instagram" banner below the
+grid) links out to the Instagram profile itself, not to individual posts, so no other code needs
+to change when you swap the images.
+
 ## Known limitations / things to revisit
 
 - **`npm audit` reports 3 high-severity advisories** in `postcss` and `sharp`, both transitive

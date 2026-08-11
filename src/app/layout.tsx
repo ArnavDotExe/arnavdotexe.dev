@@ -88,7 +88,7 @@ const jsonLd = {
     "@type": "CollegeOrUniversity",
     name: profile.education.school,
   },
-  sameAs: [profile.links.github, profile.links.linkedin],
+  sameAs: [profile.links.github, profile.links.linkedin, profile.links.instagram],
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {

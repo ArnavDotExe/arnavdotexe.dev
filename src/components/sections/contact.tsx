@@ -25,7 +25,7 @@ export function Contact() {
   return (
     <section id="contact" className="mx-auto max-w-6xl px-5 py-24 sm:px-8 sm:py-32">
       <SectionHeading
-        eyebrow="06 · Contact"
+        eyebrow="07 · Contact"
         title="Let's build something."
         description={`Currently ${profile.status.toLowerCase()}. Reach out through any channel below.`}
       />

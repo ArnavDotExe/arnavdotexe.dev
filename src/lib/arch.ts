@@ -16,7 +16,8 @@ export const WORKSPACES: Workspace[] = [
   { id: 3, key: "3", label: "work", sectionId: "experience", title: "~/arnav/experience" },
   { id: 4, key: "4", label: "projects", sectionId: "projects", title: "~/arnav/projects" },
   { id: 5, key: "5", label: "skills", sectionId: "skills", title: "~/arnav/skills" },
-  { id: 6, key: "6", label: "contact", sectionId: "contact", title: "~/arnav/contact" },
+  { id: 6, key: "6", label: "photos", sectionId: "photography", title: "~/arnav/photography" },
+  { id: 7, key: "7", label: "contact", sectionId: "contact", title: "~/arnav/contact" },
 ];
 
 export interface MemoryReading {
