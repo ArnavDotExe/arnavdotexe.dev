@@ -82,8 +82,9 @@ src/
     utils.ts                shadcn's `cn()` helper
     og-image.tsx            Shared JSX for the OG/Twitter image generators
 public/
-  avatar-placeholder.svg    Profile photo placeholder used in the neofetch panel — replace with a
-                             real photo (see below) whenever one's ready.
+  avatar-placeholder.png    Photo shown in the neofetch panel (see "Profile photo" below).
+  placeholder.svg           Original bordered/silhouette placeholder graphic, kept as a fallback —
+                             not referenced by any component.
 ```
 
 ## Arch Linux Rice Mode
@@ -124,9 +125,12 @@ Rice Mode is the site's only theme — `<body>` carries the `theme-arch` class p
 
 ### Profile photo
 
-`public/avatar-placeholder.svg` is a placeholder shown in the hero's neofetch panel
-(`components/arch/arch-fetch-panel.tsx`). To swap in a real photo, drop the file in `public/`
-(a square image works best) and point the `<Image src="...">` in that component at it.
+`public/avatar-placeholder.png` is shown in the hero's neofetch panel
+(`components/arch/arch-fetch-panel.tsx`). To swap it for a different photo, replace the file in
+`public/` (a square image works best) — keep the filename, or update the `<Image src="...">` in
+that component if you rename it. Next's static file server sets `Content-Type` from the file
+extension, so make sure the extension matches the actual image format (a PNG saved as `.svg`
+will render as a broken image).
 
 ## Known limitations / things to revisit
 

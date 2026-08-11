@@ -26,12 +26,12 @@ export function ArchFetchPanel() {
       <div id="arch-fetch" className="flex flex-col gap-6 p-6 sm:flex-row sm:gap-10 sm:p-8">
         <div className="shrink-0">
           <Image
-            src="/avatar-placeholder.svg"
-            alt="Arnav Mangaonkar — profile photo placeholder"
+            src="/avatar-placeholder.png"
+            alt="Arnav Mangaonkar"
             width={160}
             height={160}
             priority
-            className="h-32 w-32 rounded-xl sm:h-40 sm:w-40"
+            className="h-32 w-32 rounded-xl object-cover sm:h-40 sm:w-40"
           />
         </div>
         <div>
