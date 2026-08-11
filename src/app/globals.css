@@ -1,26 +1,456 @@
 @import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+@custom-variant dark (&:is(.dark *));
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
-}
+  --font-heading: var(--font-sans);
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+  --color-amber: var(--amber);
+  --color-amber-dim: var(--amber-dim);
+  --color-amber-foreground: var(--amber-foreground);
+
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.2);
+  --radius-4xl: calc(var(--radius) * 2.6);
+
+  --animate-fade-up: fade-up 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  --animate-glow-pulse: glow-pulse 2.4s ease-in-out infinite;
+  --animate-marquee: marquee 32s linear infinite;
+
+  @keyframes fade-up {
+    from {
+      opacity: 0;
+      transform: translateY(18px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  @keyframes glow-pulse {
+    0%,
+    100% {
+      opacity: 0.55;
+    }
+    50% {
+      opacity: 1;
+    }
+  }
+  @keyframes marquee {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(-50%);
+    }
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* ---------------------------------------------------------------
+   PROFESSIONAL PORTFOLIO MODE — matte black / charcoal / amber
+   --------------------------------------------------------------- */
+:root {
+  --background: #0a0a0b;
+  --foreground: #f2f0e8;
+  --card: #131316;
+  --card-foreground: #f2f0e8;
+  --popover: #141417;
+  --popover-foreground: #f2f0e8;
+
+  --primary: #e8a33d;
+  --primary-foreground: #0a0a0b;
+  --secondary: #1b1b1f;
+  --secondary-foreground: #f2f0e8;
+  --muted: #18181b;
+  --muted-foreground: #9c9a92;
+  --accent: #1c1c20;
+  --accent-foreground: #e8a33d;
+  --destructive: #e5484d;
+
+  --border: rgba(242, 240, 232, 0.09);
+  --input: rgba(242, 240, 232, 0.12);
+  --ring: #e8a33d;
+
+  --amber: #e8a33d;
+  --amber-dim: rgba(232, 163, 61, 0.14);
+  --amber-foreground: #0a0a0b;
+
+  --chart-1: #e8a33d;
+  --chart-2: #c9c6ba;
+  --chart-3: #6d6a60;
+  --chart-4: #4a4842;
+  --chart-5: #2a2a2c;
+  --radius: 0.85rem;
+
+  --sidebar: #0e0e10;
+  --sidebar-foreground: #f2f0e8;
+  --sidebar-primary: #e8a33d;
+  --sidebar-primary-foreground: #0a0a0b;
+  --sidebar-accent: #1b1b1f;
+  --sidebar-accent-foreground: #f2f0e8;
+  --sidebar-border: rgba(242, 240, 232, 0.09);
+  --sidebar-ring: #e8a33d;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  html {
+    @apply font-sans scroll-smooth;
+    color-scheme: dark;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+  ::selection {
+    background: var(--amber);
+    color: var(--amber-foreground);
+  }
+  ::-webkit-scrollbar {
+    width: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background: var(--background);
+  }
+  ::-webkit-scrollbar-thumb {
+    background: rgba(242, 240, 232, 0.14);
+    border-radius: 10px;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+  .bg-dot-grid {
+    background-image: radial-gradient(rgba(242, 240, 232, 0.14) 1px, transparent 1px);
+    background-size: 24px 24px;
+  }
+  .bg-noise {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+  .mask-fade-bottom {
+    mask-image: linear-gradient(to bottom, black 60%, transparent 100%);
+  }
+  .glow-amber {
+    box-shadow: 0 0 0 1px var(--amber-dim), 0 0 40px -8px rgba(232, 163, 61, 0.35);
+  }
+}
+
+/* ===================================================================
+   ARCH LINUX RICE MODE
+   Waybar / Hyprland-inspired terminal aesthetic.
+   Scoped entirely under body.theme-arch so it never leaks into the
+   default portfolio theme.
+   =================================================================== */
+body.theme-arch {
+  --arch-bg: #0c0e14;
+  --arch-bg-alt: #11141c;
+  --arch-surface: #161a24;
+  --arch-border: #262b38;
+  --arch-fg: #cdd6f4;
+  --arch-fg-dim: #7b8296;
+  --arch-blue: #61afef;
+  --arch-cyan: #89dceb;
+  --arch-green: #a6e3a1;
+  --arch-yellow: #f9e2af;
+  --arch-red: #f38ba8;
+  --arch-mauve: #cba6f7;
+
+  background: var(--arch-bg);
+  color: var(--arch-fg);
+  font-family: var(--font-mono), ui-monospace, monospace;
+}
+
+body.theme-arch ::selection {
+  background: var(--arch-blue);
+  color: var(--arch-bg);
+}
+
+body.theme-arch ::-webkit-scrollbar-thumb {
+  background: var(--arch-border);
+}
+
+/* Waybar-style top status bar — hidden unless Rice Mode is active, so it
+   never affects layout or paints anything in the professional theme. */
+#arch-bar,
+#arch-read {
+  display: none;
+}
+
+body.theme-arch #arch-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 200;
+  height: 34px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 0 10px;
+  background: color-mix(in srgb, var(--arch-bg-alt) 92%, transparent);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--arch-border);
+  font-size: 12px;
+  line-height: 1;
+  color: var(--arch-fg);
+}
+
+body.theme-arch #arch-bar .arch-bar-group {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  min-width: 0;
+}
+
+body.theme-arch #arch-bar .arch-module {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 8px;
+  border-radius: 4px;
+  background: var(--arch-surface);
+  border: 1px solid var(--arch-border);
+  white-space: nowrap;
+  color: inherit;
+}
+
+button.arch-module {
+  cursor: pointer;
+}
+
+button.arch-module:hover {
+  border-color: var(--arch-blue);
+  color: var(--arch-blue);
+}
+
+/* Workspace navigation */
+body.theme-arch #arch-ws {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+body.theme-arch #arch-ws button {
+  appearance: none;
+  border: 1px solid transparent;
+  background: transparent;
+  color: var(--arch-fg-dim);
+  font-family: inherit;
+  font-size: 12px;
+  padding: 4px 9px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+}
+
+body.theme-arch #arch-ws button:hover {
+  background: var(--arch-surface);
+  color: var(--arch-fg);
+}
+
+body.theme-arch #arch-ws button[aria-current="true"] {
+  background: color-mix(in srgb, var(--arch-blue) 18%, transparent);
+  border-color: var(--arch-blue);
+  color: var(--arch-blue);
+}
+
+body.theme-arch #arch-window-title {
+  color: var(--arch-fg-dim);
+  font-size: 12px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 30vw;
+}
+
+/* Reading progress bar, sits just under the bar */
+body.theme-arch #arch-read {
+  position: fixed;
+  top: 34px;
+  left: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--arch-blue), var(--arch-mauve));
+  z-index: 200;
+  width: 0%;
+  transition: width 0.1s linear;
+}
+
+body.theme-arch #arch-clock {
+  color: var(--arch-green);
+  font-variant-numeric: tabular-nums;
+}
+
+body.theme-arch #arch-mem-mod,
+body.theme-arch #arch-vis-mod {
+  color: var(--arch-yellow);
+  font-variant-numeric: tabular-nums;
+}
+
+/* Windowed reading layout — Hyprland-style bordered "window".
+   Inert outside Rice Mode: no border, no background, no shadow. */
+.arch-window {
+  position: relative;
+}
+
+body.theme-arch .arch-window {
+  background: var(--arch-bg-alt);
+  border: 1px solid var(--arch-border);
+  border-radius: 10px;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.4), 0 20px 60px -20px rgba(0, 0, 0, 0.6);
+  overflow: hidden;
+}
+
+.arch-window-titlebar {
+  display: none;
+}
+
+body.theme-arch .arch-window-titlebar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  background: var(--arch-surface);
+  border-bottom: 1px solid var(--arch-border);
+  font-size: 11px;
+  color: var(--arch-fg-dim);
+}
+
+.arch-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+
+/* Hyprland-inspired open/close window animation */
+@keyframes arch-window-in {
+  0% {
+    opacity: 0;
+    transform: scale(0.94) translateY(10px);
+    filter: blur(4px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+    filter: blur(0);
+  }
+}
+
+body.theme-arch .arch-window {
+  animation: arch-window-in 0.45s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* Neofetch identity panel */
+body.theme-arch #arch-fetch {
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 12px;
+  line-height: 1.55;
+  white-space: pre-wrap;
+  color: var(--arch-fg);
+}
+
+body.theme-arch #arch-fetch .arch-fetch-label {
+  color: var(--arch-blue);
+}
+
+body.theme-arch .arch-ascii {
+  color: var(--arch-cyan);
+  white-space: pre;
+  line-height: 1.15;
+  font-size: 11px;
+}
+
+body.theme-arch a {
+  color: var(--arch-blue);
+  text-underline-offset: 3px;
+}
+
+body.theme-arch a:hover {
+  color: var(--arch-cyan);
+}
+
+/* The professional nav is replaced entirely by the Waybar-style #arch-bar;
+   content shifts up to sit under the (shorter) bar + read-progress strip. */
+body.theme-arch #site-navbar {
+  display: none;
+}
+
+body.theme-arch #main-content {
+  padding-top: 36px;
+}
+
+body.theme-arch #site-footer {
+  border-color: var(--arch-border);
+  background: var(--arch-bg-alt);
+  color: var(--arch-fg-dim);
+}
+
+body.theme-arch #site-footer .text-muted-foreground,
+body.theme-arch #site-footer .text-muted-foreground\/70 {
+  color: var(--arch-fg-dim);
+}
+
+body.theme-arch #site-footer a,
+body.theme-arch #site-footer button {
+  color: var(--arch-fg-dim);
+  border-color: var(--arch-border);
+}
+
+body.theme-arch #site-footer a:hover,
+body.theme-arch #site-footer button:hover {
+  color: var(--arch-blue);
+  border-color: var(--arch-blue);
+}
+
+body.theme-arch code,
+body.theme-arch .arch-tag {
+  font-family: var(--font-mono), ui-monospace, monospace;
+  background: var(--arch-surface);
+  border: 1px solid var(--arch-border);
+  color: var(--arch-green);
+  padding: 1px 6px;
+  border-radius: 4px;
+  font-size: 12px;
 }
