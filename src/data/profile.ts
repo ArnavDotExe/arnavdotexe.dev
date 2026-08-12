@@ -3,12 +3,12 @@ export const profile = {
   initials: "AM",
   role: "AI / Robotics / Embedded Systems Engineer",
   positioning:
-    "Engineer building intelligent systems and a Photographer.",
+    "Engineer by Day, Photographer by Holiday.",
   heroHeadline: "Building Intelligent Systems for the Physical World.",
   heroSub:
-    ";).",
+    "(ノಠ益ಠ)ノ彡┻━┻",
   location: "Mumbai, Maharashtra, India",
-  status: "Employed",
+  status: "Working",
   email: "mangaonkararnav@gmail.com",
   phone: "+91 86928 70096",
   links: {
@@ -19,13 +19,14 @@ export const profile = {
     resume: "/Arnav-Mangaonkar-Resume.pdf",
   },
   about: [
-    "I'm an AI & Machine Learning engineer working as an R&D Engineer at Binks, focused on manufacturing efficiency and automation — applying automation and process-monitoring systems to real production environments. Before that, I built detection and alert systems for anomalies in additive manufacturing, and edge-deployed neural networks for real-time inspection on constrained hardware.",
-    "My work sits at the intersection of AI, robotics, computer vision, and embedded systems: gated neural networks for defect detection, self-hosted network and NAS infrastructure, LLM-grounded developer tooling, and firmware for IoT and anti-theft hardware. I care about systems that run unattended, in the real world, under real constraints — not just in a notebook.",
+    "Hello There General Kenobi, I am Arnav a not so genius and obviously not a billionare or a playboy or a philanthropist, just a regular everyday guy who loves to build stuff and currently working on things that are not so everyday or regualar or (͡° ͜ʖ ͡°) by any means. ",
+    "As much as I have been fasinated by Spiderman I keep my two lives separate, I'm a ML engineer by day and a photographer by night (and weekends). ",
+    "aur woh kehte hai na 'jack of all trades, master of none but oftentimes better than master of one' sahi kehte hai, as I try to delve into all kinds of things and learn from it (hopefully) and apply that into my daily life."
   ],
   education: {
-    school: "SIES Graduate School of Technology",
+    // school: "SIES Graduate School of Technology",
     degree: "B.E. in Artificial Intelligence & Machine Learning",
-    location: "Navi Mumbai, MH",
+    //location: "Navi Mumbai, MH",
     period: "2022 — 2026",
   },
   stats: [

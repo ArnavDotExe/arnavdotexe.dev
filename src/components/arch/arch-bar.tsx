@@ -1,5 +1,6 @@
 "use client";
 
+import { usePathname } from "next/navigation";
 import { Cpu, Download, Eye, Mail, Terminal } from "lucide-react";
 import { WORKSPACES } from "@/lib/arch";
 import { profile } from "@/data/profile";
@@ -8,7 +9,12 @@ import { ArchClock } from "./arch-clock";
 import { GithubIcon, LinkedinIcon } from "@/components/shared/brand-icons";
 
 export function ArchBar() {
+  const pathname = usePathname();
   const { activeSection, memory, visitors, goToSection } = useArchMode();
+
+  // The bar is dev-mode-only chrome — its workspace links point at sections
+  // that don't exist on /photography.
+  if (pathname?.startsWith("/photography")) return null;
 
   const activeWorkspace =
     WORKSPACES.find((w) => w.sectionId === activeSection) ?? WORKSPACES[0];

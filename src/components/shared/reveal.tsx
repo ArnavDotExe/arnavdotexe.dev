@@ -1,16 +1,8 @@
 "use client";
 
-import { motion, type Variants } from "framer-motion";
-import type { ReactNode } from "react";
-
-const variants: Variants = {
-  hidden: { opacity: 0, y: 22 },
-  visible: (delay: number) => ({
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.6, delay, ease: [0.16, 1, 0.3, 1] },
-  }),
-};
+import { useRef, type ReactNode } from "react";
+import { useGSAP } from "@gsap/react";
+import { gsap, ScrollTrigger } from "@/lib/gsap";
 
 export function Reveal({
   children,
@@ -23,17 +15,36 @@ export function Reveal({
   className?: string;
   as?: "div" | "li";
 }) {
-  const MotionTag = as === "li" ? motion.li : motion.div;
-  return (
-    <MotionTag
-      className={className}
-      initial="hidden"
-      whileInView="visible"
-      viewport={{ once: true, margin: "-80px" }}
-      custom={delay}
-      variants={variants}
-    >
-      {children}
-    </MotionTag>
+  const ref = useRef<HTMLDivElement | HTMLLIElement>(null);
+
+  useGSAP(
+    () => {
+      if (!ref.current) return;
+      gsap.set(ref.current, { opacity: 0, y: 22 });
+      gsap.to(ref.current, {
+        opacity: 1,
+        y: 0,
+        duration: 0.6,
+        delay,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: ref.current,
+          start: "top 88%",
+          once: true,
+        },
+      });
+    },
+    { scope: ref, dependencies: [delay] }
   );
+
+  const Tag = as;
+  return (
+    <Tag ref={ref as never} className={className}>
+      {children}
+    </Tag>
+  );
+}
+
+export function refreshReveals() {
+  ScrollTrigger.refresh();
 }

@@ -14,7 +14,7 @@ export function Certifications() {
 
   return (
     <section id="certifications" className="mx-auto max-w-6xl px-5 py-24 sm:px-8 sm:py-32">
-      <SectionHeading eyebrow="06 · Certifications" title="Certifications." />
+      <SectionHeading eyebrow="05 · certs" title="the paperwork" />
       <ArchWindow title="~/certifications$ cat verified.txt">
         <ul className="grid gap-4 p-0 sm:grid-cols-2 md:p-2 lg:grid-cols-3">
           {certifications.map((cert, i) => (

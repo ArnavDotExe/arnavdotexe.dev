@@ -352,16 +352,22 @@ body.theme-arch #arch-bar::-webkit-scrollbar {
   }
 }
 
-/* Reading progress bar, sits just under the bar */
+/* Reading progress bar, sits just under the bar when it's present (dev
+   mode); flush with the top otherwise (e.g. on /photography). */
 body.theme-arch #arch-read {
+  display: block;
   position: fixed;
-  top: 34px;
+  top: 0;
   left: 0;
   height: 2px;
   background: linear-gradient(90deg, var(--arch-blue), var(--arch-mauve));
   z-index: 200;
   width: 0%;
   transition: width 0.1s linear;
+}
+
+body.theme-arch:has(#arch-bar) #arch-read {
+  top: 34px;
 }
 
 body.theme-arch #arch-clock {
@@ -450,8 +456,9 @@ body.theme-arch a:hover {
   color: var(--arch-cyan);
 }
 
-/* Content sits under the fixed bar (34px) + read-progress strip (2px). */
-#main-content {
+/* Content sits under the fixed bar (34px) + read-progress strip (2px) —
+   only when the bar actually exists (it's hidden on /photography). */
+body:has(#arch-bar) #main-content {
   padding-top: 36px;
 }
 

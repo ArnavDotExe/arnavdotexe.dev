@@ -24,11 +24,7 @@ export function Contact() {
 
   return (
     <section id="contact" className="mx-auto max-w-6xl px-5 py-24 sm:px-8 sm:py-32">
-      <SectionHeading
-        eyebrow="07 · Contact"
-        title="Let's build something."
-        description={`Currently ${profile.status.toLowerCase()}. Reach out through any channel below.`}
-      />
+      <SectionHeading eyebrow="06 · contact" title="say hey" />
 
       <ArchWindow title="~/contact$ whoami">
         <div className="grid gap-4 p-0 sm:grid-cols-2 md:p-2 lg:grid-cols-4">
@@ -44,7 +40,7 @@ export function Contact() {
               </div>
               <p className="font-mono text-xs uppercase tracking-wide text-muted-foreground">Email</p>
               <p className="mt-1 truncate text-sm font-medium text-foreground">{profile.email}</p>
-              <p className="mt-2 text-xs text-muted-foreground/60">{copied ? "Copied!" : "Click to copy"}</p>
+              <p className="mt-2 text-xs text-muted-foreground/60">{copied ? "copied!" : "tap to copy"}</p>
             </button>
           </Reveal>
 
@@ -58,7 +54,7 @@ export function Contact() {
               <GithubIcon size={20} className="mb-4 text-amber" />
               <p className="font-mono text-xs uppercase tracking-wide text-muted-foreground">GitHub</p>
               <p className="mt-1 text-sm font-medium text-foreground">@ArnavDotExe</p>
-              <p className="mt-2 text-xs text-muted-foreground/60">30+ public repositories</p>
+              <p className="mt-2 text-xs text-muted-foreground/60">30+ repos, mostly chaos</p>
             </a>
           </Reveal>
 
@@ -84,7 +80,7 @@ export function Contact() {
             >
               <Download size={20} className="mb-4 text-amber" />
               <p className="font-mono text-xs uppercase tracking-wide text-muted-foreground">Resume</p>
-              <p className="mt-1 text-sm font-medium text-foreground">Download PDF</p>
+              <p className="mt-1 text-sm font-medium text-foreground">grab it</p>
               <p className="mt-2 text-xs text-muted-foreground/60">Updated 2026</p>
             </a>
           </Reveal>

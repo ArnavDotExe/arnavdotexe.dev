@@ -30,11 +30,7 @@ const ICONS: Record<string, React.ReactNode> = {
 export function Skills() {
   return (
     <section id="skills" className="mx-auto max-w-6xl px-5 py-24 sm:px-8 sm:py-32">
-      <SectionHeading
-        eyebrow="04 · Skills"
-        title="The stack I build with."
-        description="Spanning the full loop: model, perceive, control, deploy, and keep it running."
-      />
+      <SectionHeading eyebrow="04 · skills" title="what's in the toolbox" />
 
       <ArchWindow title="~/skills$ pacman -Q">
         <div className="grid gap-4 p-0 sm:grid-cols-2 md:p-2 lg:grid-cols-3">

@@ -7,11 +7,7 @@ import { ArchWindow } from "@/components/arch/arch-window";
 export function Experience() {
   return (
     <section id="experience" className="mx-auto max-w-6xl px-5 py-24 sm:px-8 sm:py-32">
-      <SectionHeading
-        eyebrow="02 · Experience"
-        title="Where I've built things."
-        description="R&D, industrial automation, and real-time data systems — hands-on, not just theory."
-      />
+      <SectionHeading eyebrow="02 · work" title="places I've shown up" />
 
       <ArchWindow title="~/experience/timeline.log">
         <ol className="relative space-y-10 p-0 pl-8 sm:pl-10 md:p-2 md:pl-10">

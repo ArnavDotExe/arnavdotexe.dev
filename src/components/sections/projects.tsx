@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useMemo, useRef, useState } from "react";
 import {
   Bot,
   Camera,
@@ -10,7 +10,8 @@ import {
   ServerCog,
   Sparkles,
 } from "lucide-react";
-import { motion, AnimatePresence } from "framer-motion";
+import { useGSAP } from "@gsap/react";
+import { gsap } from "@/lib/gsap";
 import { projects, type Project, type ProjectCategory } from "@/data/projects";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -59,6 +60,7 @@ const STATUS_STYLE: Record<Project["status"], string> = {
 
 export function Projects() {
   const [filter, setFilter] = useState<ProjectCategory | "All">("All");
+  const gridRef = useRef<HTMLDivElement>(null);
 
   const filtered = useMemo(() => {
     const list =
@@ -66,13 +68,23 @@ export function Projects() {
     return [...list].sort((a, b) => Number(b.featured) - Number(a.featured));
   }, [filter]);
 
+  useGSAP(
+    () => {
+      if (!gridRef.current) return;
+      gsap.from(gridRef.current.querySelectorAll("[data-project-card]"), {
+        opacity: 0,
+        y: 16,
+        duration: 0.4,
+        stagger: 0.06,
+        ease: "power2.out",
+      });
+    },
+    { dependencies: [filter], scope: gridRef }
+  );
+
   return (
     <section id="projects" className="mx-auto max-w-6xl px-5 py-24 sm:px-8 sm:py-32">
-      <SectionHeading
-        eyebrow="03 · Projects"
-        title="Selected builds."
-        description="Verified against public activity on github.com/ArnavDotExe — prioritizing robotics, computer vision, embedded systems, and automation work."
-      />
+      <SectionHeading eyebrow="03 · builds" title="stuff i've shipped" />
 
       <div className="mb-8 flex flex-wrap gap-2" role="group" aria-label="Filter projects by category">
         {CATEGORIES.map((cat) => (
@@ -95,13 +107,11 @@ export function Projects() {
 
       <ArchWindow title={`~/projects$ ls -la --filter=${filter === "All" ? "*" : filter.toLowerCase().replace(/\s|\//g, "-")}`}>
         <div className="p-0 md:p-2">
-          <AnimatePresence mode="popLayout">
-            <motion.div layout className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-              {filtered.map((project) => (
-                <ProjectCard key={project.slug} project={project} />
-              ))}
-            </motion.div>
-          </AnimatePresence>
+          <div ref={gridRef} className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            {filtered.map((project) => (
+              <ProjectCard key={project.slug} project={project} />
+            ))}
+          </div>
           {filtered.length === 0 && (
             <p className="py-16 text-center text-sm text-muted-foreground">
               No projects in this category yet.
@@ -117,13 +127,7 @@ function ProjectCard({ project }: { project: Project }) {
   const meta = CATEGORY_META[project.categories[0]];
 
   return (
-    <motion.div
-      layout
-      initial={{ opacity: 0, y: 16 }}
-      animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, y: -8 }}
-      transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
-    >
+    <div data-project-card>
       <Card className="group h-full gap-0 py-0 transition-colors hover:ring-amber/40">
         <a
           href={project.github}
@@ -182,6 +186,6 @@ function ProjectCard({ project }: { project: Project }) {
           <p className="mt-3 font-mono text-[11px] text-muted-foreground/60">{project.period}</p>
         </CardContent>
       </Card>
-    </motion.div>
+    </div>
   );
 }

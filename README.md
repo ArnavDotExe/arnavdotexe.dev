@@ -1,9 +1,15 @@
 # Arnav Mangaonkar — Portfolio
 
 A production portfolio for Arnav Mangaonkar — AI / Robotics / Embedded Systems engineer — built with
-Next.js 15, TypeScript, Tailwind CSS v4, Framer Motion, and shadcn/ui. The site's only theme is an
+Next.js 15, TypeScript, Tailwind CSS v4, GSAP, and shadcn/ui. The visual theme throughout is an
 **Arch Linux Rice Mode** aesthetic: a Waybar-style status bar, Hyprland-inspired window animation, and
 a neofetch-style identity panel in the hero.
+
+The site has two modes, switched via the big toggle fixed to the right edge of the screen:
+
+- **Developer mode** (`/`) — the portfolio: hero, about, experience, projects, skills, contact.
+- **Photographer mode** (`/photography`) — a polaroid-style album of Arnav's photography, linking
+  out to Instagram.
 
 ## Content sourcing
 
@@ -29,7 +35,7 @@ In practice:
 - **Language**: TypeScript (strict)
 - **Styling**: Tailwind CSS v4 (CSS-first `@theme`, no `tailwind.config.js`)
 - **Components**: shadcn/ui (`components.json`, style `base-nova`, built on `@base-ui/react`)
-- **Animation**: Framer Motion
+- **Animation**: GSAP (`@gsap/react`, ScrollTrigger)
 - **Icons**: lucide-react (+ two hand-rolled brand marks — GitHub/LinkedIn aren't in lucide's core set)
 - **Fonts**: Geist Sans / Geist Mono via `next/font/google` (self-hosted at build time, no runtime
   Google Fonts request)
@@ -66,19 +72,23 @@ Open [http://localhost:3000](http://localhost:3000). The homepage is a single sc
 ```
 src/
   app/
-    layout.tsx          Root layout: fonts, metadata, JSON-LD, providers
-    page.tsx             Section order for the single-page site
+    layout.tsx          Root layout: fonts, metadata, JSON-LD, ArchBar + ModeToggle + Footer
+    page.tsx             Section order for the developer-mode page (/)
+    photography/
+      page.tsx             Photographer-mode page (/photography) — polaroid album
     globals.css           Design tokens and all Rice Mode CSS
     sitemap.ts / robots.ts
     opengraph-image.tsx / twitter-image.tsx   Dynamically generated OG/Twitter images (next/og)
   components/
     sections/            Hero, About, Experience, Projects, Skills, Certifications, Contact
-    shared/               Footer, Reveal (Framer Motion wrapper), SectionHeading, brand icons
+    shared/               Footer, Reveal (GSAP ScrollTrigger wrapper), ModeToggle, SectionHeading, brand icons
+    photography/           PolaroidGrid — the /photography page's photo grid
     arch/                 Everything Rice-Mode specific (see below)
     ui/                    shadcn/ui primitives
-  data/                   Typed content model — profile, experience, projects, skills, certifications
+  data/                   Typed content model — profile, experience, projects, skills, certifications, photography
   lib/
     arch.ts                Rice Mode logic: workspaces, memory reading, visitor counter
+    gsap.ts                 GSAP + ScrollTrigger registration, imported wherever animation is needed
     utils.ts                shadcn's `cn()` helper
     og-image.tsx            Shared JSX for the OG/Twitter image generators
 public/
@@ -132,14 +142,32 @@ that component if you rename it. Next's static file server sets `Content-Type` f
 extension, so make sure the extension matches the actual image format (a PNG saved as `.svg`
 will render as a broken image).
 
-### Photography section
+### Photographer mode (`/photography`)
 
-The four tiles in the Photography section (`components/sections/photography.tsx`) currently show
-placeholder graphics from `public/photography/photo-1.svg` through `photo-4.svg`. Replace those
-four files with real photos to update the grid — same filenames, and again, make sure the
-extension matches the actual format. Every tile (and the "Follow on Instagram" banner below the
-grid) links out to the Instagram profile itself, not to individual posts, so no other code needs
-to change when you swap the images.
+The polaroid album is entirely data-driven from [`src/data/photography.ts`](src/data/photography.ts):
+
+```ts
+{ src: "/photography/photo-1.svg", alt: "...", caption: "mumbai" }
+```
+
+**To add or swap a photo**: drop the image file in `public/photography/` and add (or edit) one
+entry in that array — `caption` is optional and renders handwritten-style on the card. Rotation,
+grid position, and the hover/reveal animation are all automatic; there's nothing else to touch,
+and the array isn't capped at four, add as many as you want. As before — make sure the file
+extension matches the actual image format (Next's static file server sets `Content-Type` from the
+extension, so a PNG saved as `.svg` renders broken).
+
+Every polaroid links to the Instagram profile (`profile.links.instagram`) rather than an
+individual post — same reasoning as the avatar note above, plus it means the link never goes
+stale as new posts get added.
+
+### The mode toggle
+
+`components/shared/mode-toggle.tsx` is rendered once in the root layout, so it's present on every
+route. It's a plain `<button role="switch">` — no persisted state, it just reflects and navigates
+based on the current pathname (`usePathname()`), and `components/arch/arch-bar.tsx` self-hides via
+the same check on `/photography` (its workspace links are dev-page-specific). If you add more
+modes later, this is the pattern to follow: pathname-driven, not client state.
 
 ## Known limitations / things to revisit
 

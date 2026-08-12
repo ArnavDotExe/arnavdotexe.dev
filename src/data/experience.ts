@@ -17,7 +17,7 @@ export const experience: ExperienceEntry[] = [
     current: true,
     domain: "Manufacturing Efficiency & Automation",
     points: [
-      "Working in R&D on manufacturing efficiency and automation, applying automation and process-monitoring systems to real production environments.",
+      "Making manufacturing less painful — automation and process monitoring for real production lines, not just demos.",
     ],
     tags: ["R&D", "Manufacturing", "Automation", "Process Efficiency"],
   },
@@ -28,8 +28,8 @@ export const experience: ExperienceEntry[] = [
     current: false,
     domain: "R&D / Industrial Automation",
     points: [
-      "Developed a real-time detection and alert system for anomalies and errors occurring in additive manufacturing, specifically FDM 3D printing.",
-      "Worked across the embedded + edge-inference stack: capturing print video, running lightweight anomaly-detection models on-device, and surfacing actionable alerts.",
+      "Built a system that catches 3D-printer defects in real time, before they waste hours of filament.",
+      "Ran anomaly-detection models on-device — video in, alerts out.",
     ],
     tags: ["Embedded C", "Edge AI", "Anomaly Detection", "Additive Manufacturing", "R&D"],
   },
@@ -40,8 +40,8 @@ export const experience: ExperienceEntry[] = [
     current: false,
     domain: "Energy / Industrial Data Systems",
     points: [
-      "Built a web application to analyze energy generation data and plot it dynamically against time and other operating parameters.",
-      "Developed a real-time monitoring program that analyzes energy generation data and flags malfunctioning or anomalous transformers.",
+      "Built a dashboard to visualize energy generation data in real time.",
+      "Wrote the monitoring script that flags transformers acting up before they become a real problem.",
     ],
     tags: ["Python", "Data Analysis", "Real-Time Monitoring", "Energy Systems"],
   },

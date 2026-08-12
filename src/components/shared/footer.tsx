@@ -1,6 +1,6 @@
 import { Mail } from "lucide-react";
 import { profile } from "@/data/profile";
-import { GithubIcon, InstagramIcon, LinkedinIcon } from "@/components/shared/brand-icons";
+import { GithubIcon, LinkedinIcon } from "@/components/shared/brand-icons";
 
 export function Footer() {
   const year = new Date().getFullYear();
@@ -10,7 +10,7 @@ export function Footer() {
       <div className="mx-auto flex max-w-6xl flex-col gap-6 px-5 py-10 sm:px-8 md:flex-row md:items-center md:justify-between">
         <div className="flex flex-col gap-2">
           <p className="text-sm text-muted-foreground">
-            © {year} {profile.name}. Built with Next.js, Tailwind CSS &amp; Framer Motion.
+            © {year} {profile.name}. made with next.js, tailwind &amp; gsap.
           </p>
           {/* <p className="max-w-xl text-xs text-muted-foreground/70" title={dataSourceNote}>
             Content sourced from GitHub &amp; Arnav directly — LinkedIn returned an

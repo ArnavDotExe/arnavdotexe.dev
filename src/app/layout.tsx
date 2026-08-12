@@ -4,6 +4,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { ArchProvider } from "@/components/arch/arch-provider";
 import { ArchBar } from "@/components/arch/arch-bar";
 import { Footer } from "@/components/shared/footer";
+import { ModeToggle } from "@/components/shared/mode-toggle";
 import { profile } from "@/data/profile";
 import "./globals.css";
 
@@ -84,10 +85,6 @@ const jsonLd = {
   jobTitle: profile.role,
   email: profile.email,
   address: { "@type": "PostalAddress", addressLocality: profile.location },
-  alumniOf: {
-    "@type": "CollegeOrUniversity",
-    name: profile.education.school,
-  },
   sameAs: [profile.links.github, profile.links.linkedin, profile.links.instagram],
 };
 
@@ -113,6 +110,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <TooltipProvider delay={150}>
           <ArchProvider>
             <ArchBar />
+            <ModeToggle />
             <main id="main-content" className="flex-1">
               {children}
             </main>

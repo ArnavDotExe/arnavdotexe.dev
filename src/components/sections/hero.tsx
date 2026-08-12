@@ -1,7 +1,9 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { useRef } from "react";
+import { useGSAP } from "@gsap/react";
 import { ArrowRight, Mail } from "lucide-react";
+import { gsap } from "@/lib/gsap";
 import { profile } from "@/data/profile";
 import { experience } from "@/data/experience";
 import { useArchMode } from "@/components/arch/arch-provider";
@@ -12,6 +14,21 @@ const currentRole = experience.find((e) => e.current) ?? experience[0];
 
 export function Hero() {
   const { goToSection } = useArchMode();
+  const scope = useRef<HTMLDivElement>(null);
+
+  useGSAP(
+    () => {
+      gsap
+        .timeline({ defaults: { ease: "power3.out" } })
+        .from("[data-hero-item]", {
+          opacity: 0,
+          y: 20,
+          duration: 0.6,
+          stagger: 0.09,
+        });
+    },
+    { scope }
+  );
 
   return (
     <section
@@ -27,11 +44,9 @@ export function Hero() {
         aria-hidden="true"
       />
 
-      <div className="relative mx-auto w-full max-w-6xl">
-        <motion.div
-          initial={{ opacity: 0, y: 14 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
+      <div ref={scope} className="relative mx-auto w-full max-w-6xl">
+        <div
+          data-hero-item
           className="mb-7 inline-flex items-center gap-2 rounded-full border border-border bg-card/60 px-3.5 py-1.5 font-mono text-xs text-muted-foreground"
         >
           <span className="relative flex h-1.5 w-1.5">
@@ -39,56 +54,40 @@ export function Hero() {
             <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-amber" />
           </span>
           {profile.status} · {currentRole.role} @ {currentRole.company}
-        </motion.div>
+        </div>
 
-        <motion.h1
-          initial={{ opacity: 0, y: 22 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.05, ease: [0.16, 1, 0.3, 1] }}
+        <h1
+          data-hero-item
           className="max-w-5xl text-5xl font-semibold leading-[1.02] tracking-tight text-balance sm:text-7xl lg:text-8xl"
         >
           {profile.name}
-        </motion.h1>
+        </h1>
 
-        <motion.p
-          initial={{ opacity: 0, y: 18 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.13, ease: [0.16, 1, 0.3, 1] }}
+        <p
+          data-hero-item
           className="mt-4 max-w-3xl text-lg font-medium leading-snug text-balance text-amber sm:text-2xl lg:text-[28px]"
         >
           {profile.positioning}
-        </motion.p>
+        </p>
 
-        <motion.p
-          initial={{ opacity: 0, y: 18 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+        <p
+          data-hero-item
           className="mt-5 max-w-2xl text-base leading-relaxed text-muted-foreground sm:text-lg"
         >
           {profile.heroSub}
-        </motion.p>
+        </p>
 
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.28, ease: [0.16, 1, 0.3, 1] }}
-          className="mt-10 max-w-3xl"
-        >
+        <div data-hero-item className="mt-10 max-w-3xl">
           <ArchFetchPanel />
-        </motion.div>
+        </div>
 
-        <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.36, ease: [0.16, 1, 0.3, 1] }}
-          className="mt-10 flex flex-wrap items-center gap-3"
-        >
+        <div data-hero-item className="mt-10 flex flex-wrap items-center gap-3">
           <button
             type="button"
             onClick={() => goToSection("projects")}
             className="group flex items-center gap-2 rounded-full bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground transition-transform hover:-translate-y-0.5"
           >
-            View Projects
+            see my work
             <ArrowRight size={15} className="transition-transform group-hover:translate-x-0.5" />
           </button>
           <button
@@ -97,7 +96,7 @@ export function Hero() {
             className="flex items-center gap-2 rounded-full border border-border px-5 py-3 text-sm font-semibold text-foreground transition-colors hover:border-amber hover:text-amber"
           >
             <Mail size={15} />
-            Contact Me
+            say hi
           </button>
           <a
             href={profile.links.github}
@@ -106,14 +105,12 @@ export function Hero() {
             className="flex items-center gap-2 rounded-full border border-transparent px-5 py-3 text-sm font-semibold text-muted-foreground transition-colors hover:text-foreground"
           >
             <GithubIcon size={15} />
-            GitHub
+            github
           </a>
-        </motion.div>
+        </div>
 
-        <motion.dl
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.7, delay: 0.5 }}
+        <dl
+          data-hero-item
           className="mt-16 grid max-w-2xl grid-cols-2 gap-6 border-t border-border pt-8 sm:grid-cols-4"
         >
           {profile.stats.map((stat) => (
@@ -124,7 +121,7 @@ export function Hero() {
               <dd className="mt-1 text-xs text-muted-foreground">{stat.label}</dd>
             </div>
           ))}
-        </motion.dl>
+        </dl>
       </div>
     </section>
   );

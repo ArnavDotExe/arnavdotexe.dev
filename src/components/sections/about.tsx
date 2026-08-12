@@ -8,11 +8,7 @@ import { ArchWindow } from "@/components/arch/arch-window";
 export function About() {
   return (
     <section id="about" className="mx-auto max-w-6xl px-5 py-24 sm:px-8 sm:py-32">
-      <SectionHeading
-        eyebrow="01 · About"
-        title="Engineer at the intersection of AI and the physical world."
-        description={profile.positioning}
-      />
+      <SectionHeading eyebrow="01 · about" title="a lil' about me" />
 
       <ArchWindow title="~/about/README.md">
         <div className="grid gap-10 p-0 md:grid-cols-[1.4fr_1fr] md:gap-16 md:p-2">
@@ -27,9 +23,8 @@ export function About() {
           <Reveal delay={0.12} className="space-y-4">
             <InfoCard icon={<GraduationCap size={17} />} label="Education">
               <p className="text-sm font-medium text-foreground">{profile.education.degree}</p>
-              <p className="text-sm text-muted-foreground">{profile.education.school}</p>
               <p className="mt-1 font-mono text-xs text-muted-foreground">
-                {profile.education.location} · {profile.education.period}
+                {profile.education.period}
               </p>
             </InfoCard>
 
