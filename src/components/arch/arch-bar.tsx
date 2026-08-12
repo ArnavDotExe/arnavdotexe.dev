@@ -8,6 +8,7 @@ import { useArchMode } from "./arch-provider";
 import { useArchStats } from "./use-arch-stats";
 import { ArchClock } from "./arch-clock";
 import { GithubIcon, LinkedinIcon } from "@/components/shared/brand-icons";
+import { withBasePath } from "@/lib/base-path";
 
 export function ArchBar() {
   const pathname = usePathname();
@@ -79,7 +80,7 @@ function ArchBarContent() {
           <Mail size={13} />
         </a>
         <a
-          href={profile.links.resume}
+          href={withBasePath(profile.links.resume)}
           download
           className="arch-module arch-bar-link"
           aria-label="Download resume"

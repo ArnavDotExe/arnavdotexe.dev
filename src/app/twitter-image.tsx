@@ -1,7 +1,7 @@
 import { ImageResponse } from "next/og";
 import { OG_SIZE, OgImageContent } from "@/lib/og-image";
 
-export const runtime = "edge";
+export const dynamic = "force-static";
 export const size = OG_SIZE;
 export const contentType = "image/png";
 

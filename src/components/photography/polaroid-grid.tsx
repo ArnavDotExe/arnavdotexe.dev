@@ -3,6 +3,7 @@ import { Caveat } from "next/font/google";
 import { photoSlots } from "@/data/photography";
 import { profile } from "@/data/profile";
 import { Reveal } from "@/components/shared/reveal";
+import { withBasePath } from "@/lib/base-path";
 import { cn } from "@/lib/utils";
 
 const caveat = Caveat({ subsets: ["latin"], weight: ["600"] });
@@ -29,7 +30,7 @@ export function PolaroidGrid() {
             >
               <span className="relative block aspect-square w-full overflow-hidden bg-black">
                 <Image
-                  src={photo.src}
+                  src={withBasePath(photo.src)}
                   alt={photo.alt}
                   fill
                   sizes="(min-width: 1024px) 22vw, (min-width: 640px) 30vw, 45vw"

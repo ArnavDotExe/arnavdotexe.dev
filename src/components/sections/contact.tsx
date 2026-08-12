@@ -7,6 +7,7 @@ import { SectionHeading } from "@/components/shared/section-heading";
 import { Reveal } from "@/components/shared/reveal";
 import { ArchWindow } from "@/components/arch/arch-window";
 import { GithubIcon, LinkedinIcon } from "@/components/shared/brand-icons";
+import { withBasePath } from "@/lib/base-path";
 
 export function Contact() {
   const [copied, setCopied] = useState(false);
@@ -74,7 +75,7 @@ export function Contact() {
 
           <Reveal delay={0.18}>
             <a
-              href={profile.links.resume}
+              href={withBasePath(profile.links.resume)}
               download
               className="flex h-full flex-col rounded-2xl border border-amber/30 bg-amber/5 p-5 transition-colors hover:border-amber"
             >

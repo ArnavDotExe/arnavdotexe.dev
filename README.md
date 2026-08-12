@@ -88,6 +88,7 @@ src/
   data/                   Typed content model — profile, experience, projects, skills, certifications, photography
   lib/
     arch.ts                Rice Mode logic: workspaces, memory reading, visitor counter
+    base-path.ts            withBasePath() — needed for GitHub Pages' URL prefix, see Deployment
     gsap.ts                 GSAP + ScrollTrigger registration, imported wherever animation is needed
     utils.ts                shadcn's `cn()` helper
     og-image.tsx            Shared JSX for the OG/Twitter image generators
@@ -176,8 +177,9 @@ modes later, this is the pattern to follow: pathname-driven, not client state.
   the brief specifically calls for Next.js 15, this repo stays pinned to the latest **15.x** release
   rather than jumping majors.
 - **Certifications are empty** — see "Content sourcing" above.
-- **OG/Twitter images** are generated dynamically at request time via `next/og` (edge runtime), not
-  static files — there's no `public/og-image.png` to keep in sync.
+- **OG/Twitter images** are generated via `next/og` and prerendered once at build time (`export const
+  dynamic = "force-static"`) — there's no `public/og-image.png` to keep in sync, and no per-request
+  cost either way.
 
 ## Deployment
 
@@ -198,3 +200,40 @@ npm run start   # serves on port 3000 by default
 
 The app is fully server-renderable and has no database or other external service dependency (the
 visitor counter degrades gracefully if its endpoint is unreachable).
+
+### GitHub Pages
+
+GitHub Pages only serves static files — no server, so no Next.js Image Optimization API and no
+dynamic route handlers. This repo already accounts for that: `next.config.ts` switches to
+`output: "export"` (plus unoptimized images and a `basePath`) when `STATIC_EXPORT=true` is set,
+which is exactly what the `npm run build:pages` script and the included GitHub Actions workflow
+(`.github/workflows/deploy-pages.yml`) do. The default `npm run build` (Vercel, or any Node host)
+is untouched by any of this.
+
+**One-time setup** (already scaffolded — you just need to flip the switch in GitHub's UI):
+
+1. Push this repo to GitHub (already done if you're reading this from the repo).
+2. On GitHub: **Settings → Pages → Source → GitHub Actions**. That's the only manual step —
+   everything else happens in the workflow.
+3. Push to `master` (or run the workflow manually from the **Actions** tab → "Deploy to GitHub
+   Pages" → **Run workflow**). The first run creates the `github-pages` environment automatically.
+4. Once it finishes, the site is live at `https://arnavdotexe.github.io/arnavdotexe.dev/` — check
+   the **Actions** tab for the exact URL and any errors.
+
+**To test the static export locally before pushing:**
+
+```bash
+npm run build:pages
+npx serve out
+```
+
+Note that `npx serve out` alone won't reproduce the `/arnavdotexe.dev/` path prefix GitHub Pages
+adds — internal links will look like they 404 locally even though they'll work once deployed. To
+test the prefix too, serve `out/` from inside a parent folder named to match
+(`mkdir -p test/arnavdotexe.dev && cp -r out/. test/arnavdotexe.dev/ && npx serve test`).
+
+**Switching to a custom domain later** (e.g. `arnavdotexe.dev` itself, matching the repo name): once
+DNS is pointed at GitHub Pages, remove `NEXT_PUBLIC_BASE_PATH=/arnavdotexe.dev` from both
+`package.json`'s `build:pages` script and the workflow's env block (the site then serves from the
+domain root, no prefix needed), add a `public/CNAME` file containing just the domain, and set that
+domain in the same **Settings → Pages** screen.

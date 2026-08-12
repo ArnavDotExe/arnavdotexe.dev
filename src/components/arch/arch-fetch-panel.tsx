@@ -2,6 +2,7 @@ import Image from "next/image";
 import { profile } from "@/data/profile";
 import { experience } from "@/data/experience";
 import { spokenLanguages } from "@/data/skills";
+import { withBasePath } from "@/lib/base-path";
 import { ArchWindow } from "./arch-window";
 
 const current = experience.find((e) => e.current) ?? experience[0];
@@ -26,7 +27,7 @@ export function ArchFetchPanel() {
       <div id="arch-fetch" className="flex flex-col gap-6 p-6 sm:flex-row sm:gap-10 sm:p-8">
         <div className="shrink-0">
           <Image
-            src="/avatar-placeholder.png"
+            src={withBasePath("/avatar-placeholder.png")}
             alt="Arnav Mangaonkar"
             width={160}
             height={160}

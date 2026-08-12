@@ -5,6 +5,7 @@ import { ArchBar } from "@/components/arch/arch-bar";
 import { Footer } from "@/components/shared/footer";
 import { ModeToggle } from "@/components/shared/mode-toggle";
 import { profile } from "@/data/profile";
+import { withBasePath } from "@/lib/base-path";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -65,7 +66,7 @@ export const metadata: Metadata = {
     googleBot: { index: true, follow: true, "max-image-preview": "large" },
   },
   icons: {
-    icon: [{ url: "/icon.svg", type: "image/svg+xml" }],
+    icon: [{ url: withBasePath("/icon.svg"), type: "image/svg+xml" }],
   },
 };
 

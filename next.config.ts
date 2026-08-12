@@ -1,5 +1,17 @@
 import type { NextConfig } from "next";
 
+// GitHub Pages serves static files only — no server, so no Next.js Image
+// Optimization API and no dynamic (edge/node) route handlers. Setting
+// STATIC_EXPORT=true switches to `output: "export"` for that target while
+// leaving the default `npm run build` (Vercel, or any Node host) untouched.
+const isStaticExport = process.env.STATIC_EXPORT === "true";
+
+// GitHub Pages project sites are served at
+// https://<user>.github.io/<repo>/ — every internal link/asset needs that
+// prefix baked in. Leave NEXT_PUBLIC_BASE_PATH unset for a custom domain
+// (served at the root) or any non-Pages host.
+const basePath = process.env.NEXT_PUBLIC_BASE_PATH || undefined;
+
 const nextConfig: NextConfig = {
   poweredByHeader: false,
   compress: true,
@@ -13,7 +25,18 @@ const nextConfig: NextConfig = {
   images: {
     formats: ["image/avif", "image/webp"],
     minimumCacheTTL: 31536000, // 1 year — photos don't change once deployed
+    // Static export has no server to run the optimizer on, so images ship
+    // as-is (still fine — they're already reasonably sized JPEGs).
+    unoptimized: isStaticExport,
   },
+
+  ...(isStaticExport && {
+    output: "export",
+    trailingSlash: true,
+  }),
+
+  basePath,
+  assetPrefix: basePath,
 };
 
 export default nextConfig;
