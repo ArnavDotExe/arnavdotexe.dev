@@ -10,12 +10,10 @@ import {
   useState,
   type ReactNode,
 } from "react";
-import { WORKSPACES, loadArchVisitors, readMemoryUsage, type MemoryReading } from "@/lib/arch";
+import { WORKSPACES } from "@/lib/arch";
 
 interface ArchContextValue {
   activeSection: string;
-  memory: MemoryReading;
-  visitors: number | null;
   goToSection: (sectionId: string) => void;
 }
 
@@ -31,8 +29,6 @@ const SECTION_IDS = WORKSPACES.map((w) => w.sectionId);
 
 export function ArchProvider({ children }: { children: ReactNode }) {
   const [activeSection, setActiveSection] = useState<string>(SECTION_IDS[0]);
-  const [memory, setMemory] = useState<MemoryReading>({ supported: false });
-  const [visitors, setVisitors] = useState<number | null>(null);
 
   const readBarRef = useRef<HTMLDivElement | null>(null);
   const rafRef = useRef<number | null>(null);
@@ -87,32 +83,19 @@ export function ArchProvider({ children }: { children: ReactNode }) {
     return () => observer.disconnect();
   }, []);
 
-  // Memory module — polls the non-standard performance.memory API.
-  // Falls back gracefully (supported: false) on Firefox/Safari.
-  useEffect(() => {
-    setMemory(readMemoryUsage());
-    const id = window.setInterval(() => setMemory(readMemoryUsage()), 2000);
-    return () => window.clearInterval(id);
-  }, []);
-
-  // Visitor counter — fetched once; failures are swallowed in loadArchVisitors().
-  useEffect(() => {
-    let cancelled = false;
-    loadArchVisitors().then((count) => {
-      if (!cancelled) setVisitors(count);
-    });
-    return () => {
-      cancelled = true;
-    };
-  }, []);
-
   const goToSection = useCallback((sectionId: string) => {
     document.getElementById(sectionId)?.scrollIntoView({ behavior: "smooth", block: "start" });
   }, []);
 
+  // activeSection changes rarely (section-boundary crossings) and goToSection
+  // is stable — components that only need navigation (e.g. Hero) never
+  // re-render from this. Memory/visitor stats live in ArchBar's own state
+  // instead of here, since it's the only consumer that displays them —
+  // otherwise every consumer of this context would re-render on every
+  // memory-poll tick for no reason.
   const value = useMemo<ArchContextValue>(
-    () => ({ activeSection, memory, visitors, goToSection }),
-    [activeSection, memory, visitors, goToSection]
+    () => ({ activeSection, goToSection }),
+    [activeSection, goToSection]
   );
 
   return (

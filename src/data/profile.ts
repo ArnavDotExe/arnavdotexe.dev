@@ -15,7 +15,7 @@ export const profile = {
     github: "https://github.com/ArnavDotExe",
     linkedin: "https://www.linkedin.com/in/arnavmangaonkar",
     instagram: "https://www.instagram.com/shillpkarr",
-    email: "mailto:mangaonkararnav@gmail.com",
+    email: "mailto:arnav.mangaonkar12@gmail.com",
     resume: "/Arnav-Mangaonkar-Resume.pdf",
   },
   about: [

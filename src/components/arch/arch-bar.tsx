@@ -5,16 +5,24 @@ import { Cpu, Download, Eye, Mail, Terminal } from "lucide-react";
 import { WORKSPACES } from "@/lib/arch";
 import { profile } from "@/data/profile";
 import { useArchMode } from "./arch-provider";
+import { useArchStats } from "./use-arch-stats";
 import { ArchClock } from "./arch-clock";
 import { GithubIcon, LinkedinIcon } from "@/components/shared/brand-icons";
 
 export function ArchBar() {
   const pathname = usePathname();
-  const { activeSection, memory, visitors, goToSection } = useArchMode();
 
-  // The bar is dev-mode-only chrome — its workspace links point at sections
-  // that don't exist on /photography.
+  // The bar (and its stats polling) is dev-mode-only chrome — its workspace
+  // links point at sections that don't exist on /photography, and there's no
+  // point running the memory/visitor interval when nothing renders it.
   if (pathname?.startsWith("/photography")) return null;
+
+  return <ArchBarContent />;
+}
+
+function ArchBarContent() {
+  const { activeSection, goToSection } = useArchMode();
+  const { memory, visitors } = useArchStats();
 
   const activeWorkspace =
     WORKSPACES.find((w) => w.sectionId === activeSection) ?? WORKSPACES[0];

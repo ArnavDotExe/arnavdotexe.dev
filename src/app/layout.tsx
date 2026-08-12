@@ -1,6 +1,5 @@
 import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
-import { TooltipProvider } from "@/components/ui/tooltip";
 import { ArchProvider } from "@/components/arch/arch-provider";
 import { ArchBar } from "@/components/arch/arch-bar";
 import { Footer } from "@/components/shared/footer";
@@ -107,16 +106,14 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         >
           Skip to content
         </a>
-        <TooltipProvider delay={150}>
-          <ArchProvider>
-            <ArchBar />
-            <ModeToggle />
-            <main id="main-content" className="flex-1">
-              {children}
-            </main>
-            <Footer />
-          </ArchProvider>
-        </TooltipProvider>
+        <ArchProvider>
+          <ArchBar />
+          <ModeToggle />
+          <main id="main-content" className="flex-1">
+            {children}
+          </main>
+          <Footer />
+        </ArchProvider>
       </body>
     </html>
   );
