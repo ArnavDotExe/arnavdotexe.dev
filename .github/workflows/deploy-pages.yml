@@ -10,10 +10,13 @@ permissions:
   pages: write
   id-token: write
 
-# Only one deploy at a time; let an in-flight run finish rather than cancel it.
+# Cancel any in-flight run when a newer one starts. With this false, a run
+# queued for an older commit can finish *after* a newer commit's run and
+# overwrite it — confirmed via the Deployments API: a rerun for an earlier
+# SHA landed after the correct one and became the "latest" live deployment.
 concurrency:
   group: pages
-  cancel-in-progress: false
+  cancel-in-progress: true
 
 jobs:
   build:
