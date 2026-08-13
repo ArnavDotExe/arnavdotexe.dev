@@ -29,7 +29,7 @@ export default function PhotographyPage() {
           mode ]
         </span>
         <h1 className="max-w-2xl text-4xl font-semibold tracking-tight text-balance sm:text-6xl">
-          arnav shoots stuff too
+          the vision through my Lens 
         </h1>
         <p className="mt-4 max-w-xl text-base leading-relaxed text-muted-foreground sm:text-lg">
           a few favorites below — click any of them to see the rest on{" "}
