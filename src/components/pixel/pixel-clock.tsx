@@ -6,7 +6,7 @@ function formatTime(d: Date) {
   return d.toLocaleTimeString("en-GB", { hour12: false });
 }
 
-export function ArchClock() {
+export function PixelClock() {
   const [time, setTime] = useState<string>("");
 
   useEffect(() => {
@@ -36,7 +36,7 @@ export function ArchClock() {
   }, []);
 
   return (
-    <span id="arch-clock" className="arch-module" aria-hidden="true" suppressHydrationWarning>
+    <span id="pixel-clock" className="pixel-module" aria-hidden="true" suppressHydrationWarning>
       {time || "00:00:00"}
     </span>
   );

@@ -37,7 +37,7 @@ jobs:
           # Switch to a custom domain later by removing NEXT_PUBLIC_BASE_PATH
           # here and in package.json's build:pages script, and adding a
           # public/CNAME file with the domain.
-          NEXT_PUBLIC_SITE_URL: https://arnavdotexe.dev.github.io
+          NEXT_PUBLIC_SITE_URL: https://arnavdotexe.github.io/arnavdotexe.dev
 
       - uses: actions/upload-pages-artifact@v3
         with:
