@@ -20,10 +20,12 @@ function BagShell() {
       </header>
 
       <div className="bag-shell-body" data-mobile-view={mobileView}>
-        <div className="bag-shell-player">
-          <PlayerCard />
+        <div className="bag-shell-left">
+          <div className="bag-shell-player">
+            <PlayerCard />
+          </div>
+          <BagNav className="bag-shell-nav" />
         </div>
-        <BagNav className="bag-shell-nav" />
         <ContentPanel className="bag-shell-content" />
       </div>
 

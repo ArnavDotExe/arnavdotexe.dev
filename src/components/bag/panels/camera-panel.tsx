@@ -21,7 +21,7 @@ export function CameraPanel() {
         .
       </p>
 
-      <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
+      <div className="grid grid-cols-2 gap-2.5 sm:grid-cols-4">
         {photoSlots.map((photo) => (
           <a
             key={photo.src}
@@ -34,7 +34,7 @@ export function CameraPanel() {
               src={withBasePath(photo.src)}
               alt={photo.alt}
               fill
-              sizes="(min-width: 640px) 30vw, 45vw"
+              sizes="(min-width: 640px) 22vw, 45vw"
               className="object-cover grayscale-[15%] transition-all duration-300 group-hover:grayscale-0"
             />
             {photo.caption && (
