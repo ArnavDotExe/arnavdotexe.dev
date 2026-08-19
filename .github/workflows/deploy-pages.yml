@@ -33,11 +33,11 @@ jobs:
 
       - run: npm run build:pages
         env:
-          # Served at https://<user>.github.io/<repo>/ — see next.config.ts.
-          # Switch to a custom domain later by removing NEXT_PUBLIC_BASE_PATH
-          # here and in package.json's build:pages script, and adding a
-          # public/CNAME file with the domain.
-          NEXT_PUBLIC_SITE_URL: https://arnavdotexe.github.io/arnavdotexe.dev
+          # This repo is named <user>.github.io, GitHub's special "user site"
+          # naming — it's served at the account root with no path prefix, so
+          # NEXT_PUBLIC_BASE_PATH is intentionally not set here (see
+          # next.config.ts: an unset basePath means root-level serving).
+          NEXT_PUBLIC_SITE_URL: https://arnavdotexe.github.io
 
       - uses: actions/upload-pages-artifact@v3
         with:

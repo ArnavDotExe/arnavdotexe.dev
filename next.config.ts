@@ -6,10 +6,12 @@ import type { NextConfig } from "next";
 // leaving the default `npm run build` (Vercel, or any Node host) untouched.
 const isStaticExport = process.env.STATIC_EXPORT === "true";
 
-// GitHub Pages project sites are served at
-// https://<user>.github.io/<repo>/ — every internal link/asset needs that
-// prefix baked in. Leave NEXT_PUBLIC_BASE_PATH unset for a custom domain
-// (served at the root) or any non-Pages host.
+// GitHub Pages *project* sites (repo name != <user>.github.io) are served at
+// https://<user>.github.io/<repo>/ and need that prefix baked into every
+// internal link/asset via NEXT_PUBLIC_BASE_PATH. This repo is the special
+// <user>.github.io "user site" name instead, served at the account root, so
+// NEXT_PUBLIC_BASE_PATH is intentionally left unset — same as it would be
+// for a custom domain or any non-Pages host.
 const basePath = process.env.NEXT_PUBLIC_BASE_PATH || undefined;
 
 const nextConfig: NextConfig = {
