@@ -12,14 +12,16 @@ const STATUS_STYLE: Record<(typeof projects)[number]["status"], string> = {
   Published: "text-[var(--pixel-ink)] border-amber bg-amber/20",
 };
 
+const dexProjects = projects.filter((p) => p.showInDex !== false);
+
 export function PokedexPanel() {
-  const [selectedSlug, setSelectedSlug] = useState(projects[0].slug);
-  const selected = projects.find((p) => p.slug === selectedSlug) ?? projects[0];
+  const [selectedSlug, setSelectedSlug] = useState(dexProjects[0].slug);
+  const selected = dexProjects.find((p) => p.slug === selectedSlug) ?? dexProjects[0];
 
   return (
     <div className="grid gap-4 md:grid-cols-[1fr_1.4fr]">
       <ul className="flex flex-col gap-1.5 md:max-h-[520px] md:overflow-y-auto md:pr-1">
-        {projects.map((project, i) => (
+        {dexProjects.map((project, i) => (
           <li key={project.slug}>
             <button
               type="button"

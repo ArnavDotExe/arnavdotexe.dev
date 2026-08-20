@@ -18,6 +18,8 @@ export interface Project {
   period: string;
   featured: boolean;
   status: "Active" | "Shipped" | "Published";
+  /** false = GitHub (Arnav-PC) only, hidden from the curated Projectdex. Defaults to true. */
+  showInDex?: boolean;
 }
 
 // Verified against github.com/ArnavDotExe (public repos) and Arnav's resume.
@@ -107,6 +109,80 @@ export const projects: Project[] = [
     period: "2026",
     featured: false,
     status: "Shipped",
+  },
+  {
+    slug: "bitpy",
+    name: "bitPy",
+    tagline: "a bittorrent client built from scratch — no libraries, just the protocol",
+    description:
+      "A minimal, educational BitTorrent client written in pure Python — tracker communication, peer connections, and piece exchange/verification all implemented straight from the protocol spec rather than a wrapper library. Ships with both a Tkinter GUI and a CLI.",
+    categories: ["Infrastructure"],
+    tech: ["Python", "Tkinter", "Networking", "Bencode"],
+    achievements: [
+      "implemented the BitTorrent protocol from spec — tracker comms, peer handshakes, piece scheduling — zero external dependencies",
+      "piece verification and storage handled manually, no torrent library doing the work",
+      "both a GUI and a CLI, same core underneath",
+    ],
+    github: "https://github.com/ArnavDotExe/bitPy",
+    period: "Aug 2025 — Present",
+    featured: false,
+    status: "Active",
+  },
+  {
+    slug: "picone",
+    name: "PiCone",
+    tagline: "self-hosted media server that streams straight off a raspberry pi, no transcoding",
+    description:
+      "A lightweight, self-hosted media server built specifically for 32-bit ARM Raspberry Pi hardware — direct HTTP streaming with byte-range support (seekable in a plain browser player) and zero transcoding, so it stays light on CPU and memory. REST API for movies and TV, optional TMDb metadata, and playback position memory. Originally shipped as part of ByteCave.",
+    categories: ["Infrastructure", "Embedded Systems"],
+    tech: ["Python", "Raspberry Pi", "REST API", "TMDb"],
+    achievements: [
+      "zero-transcode direct streaming with byte-range support — seeks work in a plain browser player",
+      "runs on 32-bit ARM without choking, no GPU or beefy CPU needed",
+      "remembers playback position and pulls poster/title metadata from TMDb",
+    ],
+    github: "https://github.com/ArnavDotExe/PiCone",
+    period: "Apr 2026",
+    featured: false,
+    status: "Shipped",
+    showInDex: false,
+  },
+  {
+    slug: "flappy-ai",
+    name: "Flappy.ai",
+    tagline: "flappy bird, but the AI learns to play it via genetic algorithm",
+    description:
+      "A Flappy Bird clone with a twist — instead of hardcoding the AI, a population of 100 birds evolves across generations using a genetic algorithm. Each bird's tiny neural network (distance to the next pipe, height difference) gets selected and mutated based on how far it survives, with a real-time view of generation, score, and birds-alive stats while it trains.",
+    categories: ["AI / ML"],
+    tech: ["Python", "Pygame", "NumPy", "Genetic Algorithms", "Neural Networks"],
+    achievements: [
+      "population of 100 birds evolving via natural selection, not a pretrained model",
+      "tiny neural net per bird — 2 inputs, weights evolve generation over generation",
+      "live training visualization: generation, score, and birds-alive in real time",
+    ],
+    github: "https://github.com/ArnavDotExe/Flappy.ai",
+    period: "Oct 2024",
+    featured: false,
+    status: "Shipped",
+  },
+  {
+    slug: "pytorrentstreamer",
+    name: "PyTorrentStreamer",
+    tagline: "search a movie, stream it straight to vlc — no download-and-wait",
+    description:
+      "A command-line tool for searching, streaming, and downloading movies over torrents. Pulls listings from the YTS API, then hands off to WebTorrent CLI for the actual transfer — stream picks play straight into VLC as they download instead of waiting for the whole file.",
+    categories: ["Infrastructure"],
+    tech: ["Python", "YTS API", "WebTorrent", "VLC"],
+    achievements: [
+      "streams while downloading via WebTorrent CLI — no waiting for the full file",
+      "pulls real listings from the YTS API instead of scraping",
+      "hands playback straight to VLC",
+    ],
+    github: "https://github.com/ArnavDotExe/PyTorrentStreamer",
+    period: "Aug 2024 — Dec 2024",
+    featured: false,
+    status: "Shipped",
+    showInDex: false,
   },
 ];
 

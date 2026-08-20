@@ -93,7 +93,7 @@ export function IntroScreen() {
 
       <p
         data-intro-item
-        className="mt-5 font-pixel text-[9px] uppercase tracking-wide text-muted-foreground/70"
+        className="mt-9 font-pixel text-[9px] uppercase tracking-wide text-muted-foreground/70"
       >
         press enter to continue
       </p>
