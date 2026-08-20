@@ -3,7 +3,6 @@ import { Geist, Geist_Mono, Press_Start_2P } from "next/font/google";
 import { KonamiEasterEgg } from "@/components/pixel/konami-easter-egg";
 import { ConsoleEasterEgg } from "@/components/pixel/console-easter-egg";
 import { profile } from "@/data/profile";
-import { withBasePath } from "@/lib/base-path";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -70,9 +69,9 @@ export const metadata: Metadata = {
     follow: true,
     googleBot: { index: true, follow: true, "max-image-preview": "large" },
   },
-  icons: {
-    icon: [{ url: withBasePath("/icon.svg"), type: "image/svg+xml" }],
-  },
+  // Favicon/app icon comes from src/app/icon.png (+ apple-icon.png) via
+  // Next's file convention — it handles the <link> tags automatically,
+  // including basePath, so no manual `icons` entry needed here.
 };
 
 export const viewport: Viewport = {
