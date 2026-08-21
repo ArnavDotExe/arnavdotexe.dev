@@ -5,6 +5,7 @@ import { IntroScreen } from "./intro-screen";
 import { PlayerCard } from "./player-card";
 import { BagNav } from "./bag-nav";
 import { ContentPanel } from "./content-panel";
+import { FirstOpenPopup } from "./first-open-popup";
 import { PixelClock } from "@/components/pixel/pixel-clock";
 
 function BagShell() {
@@ -14,6 +15,7 @@ function BagShell() {
 
   return (
     <div className="bag-shell">
+      <FirstOpenPopup />
       <header className="bag-shell-header font-pixel">
         <span>arnav&apos;s bag</span>
         <PixelClock />

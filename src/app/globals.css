@@ -486,6 +486,15 @@ body.theme-pixel .pixel-tag {
 body.theme-pixel {
   background: var(--background);
   color: var(--foreground);
+  cursor: url("/cursor-pikachu.svg") 3 2, auto;
+}
+
+/* Interactive elements (nav items, buttons, links) declare their own
+   `cursor: pointer` for semantics/accessibility, which otherwise swaps
+   back to the native pointer on hover and hides the custom cursor. Force
+   it back everywhere inside the themed app. */
+body.theme-pixel * {
+  cursor: url("/cursor-pikachu.svg") 3 2, auto !important;
 }
 
 /* ===================================================================
@@ -499,6 +508,36 @@ body.theme-pixel {
 @media (prefers-reduced-motion: reduce) {
   .animate-pixel-bob-delayed {
     animation: none;
+  }
+}
+
+/* ===================================================================
+   TRAINER CARD FLIP — sprite block flips to a stat card back, like the
+   trainer card screen in-game. Front stays in normal flow (sizes the
+   container); back is absolutely positioned to match.
+   =================================================================== */
+.trainer-card-flip {
+  perspective: 1000px;
+}
+.trainer-card-flip-inner {
+  position: relative;
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  transform-style: preserve-3d;
+}
+.trainer-card-flip[data-flipped="true"] .trainer-card-flip-inner {
+  transform: rotateY(180deg);
+}
+.trainer-card-face {
+  backface-visibility: hidden;
+}
+.trainer-card-face-back {
+  position: absolute;
+  inset: 0;
+  transform: rotateY(180deg);
+}
+@media (prefers-reduced-motion: reduce) {
+  .trainer-card-flip-inner {
+    transition: none;
   }
 }
 

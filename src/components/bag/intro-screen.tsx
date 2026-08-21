@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useRef } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { useGSAP } from "@gsap/react";
 import { gsap } from "@/lib/gsap";
 import { profile } from "@/data/profile";
@@ -11,9 +11,42 @@ import { useBag } from "./bag-provider";
 
 const currentRole = experience.find((e) => e.current) ?? experience[0];
 
+/** Reveals `text` a character at a time, like a Game Boy dialogue box.
+ * Skips straight to the full text under prefers-reduced-motion. */
+function useTypewriter(text: string, speed = 32, delay = 150) {
+  const [output, setOutput] = useState("");
+
+  useEffect(() => {
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (reduceMotion) {
+      setOutput(text);
+      return;
+    }
+
+    setOutput("");
+    let i = 0;
+    let interval: ReturnType<typeof setInterval>;
+    const startTimeout = setTimeout(() => {
+      interval = setInterval(() => {
+        i++;
+        setOutput(text.slice(0, i));
+        if (i >= text.length) clearInterval(interval);
+      }, speed);
+    }, delay);
+
+    return () => {
+      clearTimeout(startTimeout);
+      clearInterval(interval);
+    };
+  }, [text, speed, delay]);
+
+  return output;
+}
+
 export function IntroScreen() {
   const { openBag } = useBag();
   const scope = useRef<HTMLDivElement>(null);
+  const typedEncounterLine = useTypewriter("a wild engineer appeared!");
 
   const domains = useMemo(() => {
     const seen = new Set<ProjectCategory>();
@@ -55,9 +88,10 @@ export function IntroScreen() {
 
       <p
         data-intro-item
+        aria-live="polite"
         className="mb-3 font-pixel text-[10px] uppercase tracking-[0.15em] text-[var(--pixel-yellow)] sm:text-xs"
       >
-        a wild engineer appeared!
+        {typedEncounterLine}
       </p>
 
       <h1
@@ -93,9 +127,12 @@ export function IntroScreen() {
 
       <p
         data-intro-item
-        className="mt-9 font-pixel text-[9px] uppercase tracking-wide text-muted-foreground/70"
+        className="mt-9 flex items-center gap-1.5 font-pixel text-[9px] uppercase tracking-wide text-muted-foreground/70"
       >
         press enter to continue
+        <span className="animate-blink" aria-hidden="true">
+          ▼
+        </span>
       </p>
     </div>
   );
