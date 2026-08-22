@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from "next";
+import Script from "next/script";
 import { Geist, Geist_Mono, Press_Start_2P } from "next/font/google";
 import { KonamiEasterEgg } from "@/components/pixel/konami-easter-egg";
 import { ConsoleEasterEgg } from "@/components/pixel/console-easter-egg";
@@ -102,6 +103,12 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
+        <Script
+          strategy="afterInteractive"
+          type="module"
+          src="https://static.cloudflareinsights.com/beacon.min.js"
+          data-cf-beacon='{"token": "c70ab16a0c5947debcbf55ca6c76e843"}'
         />
       </head>
       <body className="theme-pixel min-h-full flex flex-col">
